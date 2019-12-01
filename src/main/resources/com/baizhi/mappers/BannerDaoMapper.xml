@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!-- namespace表示实现的是个一个接口 -->
+<mapper namespace="com.baizhi.dao.BannerDao">
+
+    <!--分页显示所有的轮播图-->
+    <!--  <select id="findAllByPage" resultType="Banner">
+          select id,title,status,create_time as createTime,
+                  url,descript
+          from banner
+          limit #{start},#{rows}
+      </select>-->
+
+
+    <delete id="deleteBannerById" parameterType="String">
+        delete from banner where id in
+        <foreach collection="array" open="(" separator="," close=")" item="id">
+            #{id}
+        </foreach>
+    </delete>
+
+
+    <update id="updateBannerById">
+        update banner
+        <set>
+
+            <if test="title!='' and title!=null">
+                title=#{title},
+            </if>
+
+            <if test="status!='' and status!=null">
+                status=#{status},
+            </if>
+
+            <if test="descript!='' and descript!=null">
+                descript=#{descript},
+            </if>
+
+            <if test="url!='' and url!=null">
+                url=#{url}
+            </if>
+        </set>
+        where id=#{id}
+    </update>
+</mapper>

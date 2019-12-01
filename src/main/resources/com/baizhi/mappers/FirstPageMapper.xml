@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!-- namespace表示实现的是个一个接口 -->
+<mapper namespace="com.baizhi.dao.FirstPageDao">
+    <!--获取最新的5张轮播图-->
+    <select id="findFiveBanners" resultType="Banner">
+      select id,title,status,create_time as createTime,url,descript
+        from banner order by create_time limit 5
+    </select>
+    <!--随机展示6个专辑-->
+    <select id="findSixAlbum" resultType="Album">
+      select id,title,author,announcer,chapter_num as chapterNum,score,album_intro as albumIntro,
+            status, issue_time as issueTime,upload_time as uploadTime,picture
+        from album order by rand() limit 6
+    </select>
+
+    <select id="findTwoArticle" resultType="Article">
+        select id,title,status,issue_time as issueTime,upload_time as uploadTime,author,content from article
+             order by rand() limit 2
+    </select>
+
+</mapper>

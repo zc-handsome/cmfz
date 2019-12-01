@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!-- namespace表示实现的是个一个接口 -->
+<mapper namespace="com.baizhi.dao.UserDao">
+
+    <!--查询三周内用户的注册量-->
+    <select id="findUserByDate" resultType="Integer">
+        select count(id) from user where DATEDIFF(now(),create_time) &lt; #{time} and sex=#{sex}
+    </select>
+
+    <!--用户的地区分布
+        每个省注册的男和女人数，按照省份进行分组，
+        然后再添加一个性别条件
+    -->
+    <select id="groupByProvince" resultType="Province">
+      select province as name,count(id) as value from user WHERE sex=#{sex} GROUP BY province
+    </select>
+
+    <insert id="insertUser" parameterType="User">
+        insert into user(id,name,sex,create_time,province)
+        values (#{id},#{name},#{sex},#{createTime},#{province})
+    </insert>
+
+    <!--查询所有的用户-->
+    <select id="findAllUser" resultType="User">
+        select id,name,sex,create_time as createTime,province
+              from user
+    </select>
+</mapper>

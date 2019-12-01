@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!-- namespace表示实现的是个一个接口 -->
+<mapper namespace="com.baizhi.dao.ChapterDao">
+
+    <!--批量删除章节-->
+    <delete id="deleteChapterById" parameterType="String">
+        delete from chapter where id in
+        <foreach collection="array" open="(" separator="," close=")" item="id">
+            #{id}
+        </foreach>
+    </delete>
+    <!--批量删除章节通过专辑id-->
+    <delete id="deleteChaptersByAlbumId" parameterType="String">
+        delete from chapter where album_id in
+        <foreach collection="array" open="(" separator="," close=")" item="album_id">
+            #{album_id}
+        </foreach>
+    </delete>
+
+    <!--修改专辑-->
+    <update id="updateChapter" parameterType="Chapter">
+        update chapter
+        <set>
+            <if test="title!=null and title!=''">
+                title=#{title},
+            </if>
+            <if test="size!=null and size!=''">
+                size=#{size},
+            </if>
+            <if test="duration!=null and duration!=''">
+                duration=#{duration},
+            </if>
+            <if test="mp3Name!=null and mp3Name!=''">
+                mp3_name=#{mp3Name}
+            </if>
+        </set>
+        where id=#{id}
+    </update>
+</mapper>

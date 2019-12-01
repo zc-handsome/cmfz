@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!-- namespace表示实现的是个一个接口 -->
+<mapper namespace="com.baizhi.dao.AlbumDao">
+    <update id="updateAlbumById" parameterType="Album">
+        update album
+        <set>
+            <if test="title!='' and title!=null">
+                title=#{title},
+            </if>
+            <if test="score!='' and score!=null">
+                score=#{score},
+            </if>
+            <if test="status!='' and status!=null">
+                status=#{status},
+            </if>
+            <if test="albumIntro!='' and albumIntro!=null">
+                album_intro=#{albumIntro},
+            </if>
+            <if test="picture!='' and picture!=null">
+                picture=#{picture}
+            </if>
+        </set>
+        where id=#{id}
+    </update>
+
+    <delete id="deleteAlbumById" parameterType="String">
+        delete from album where id in
+        <foreach collection="array" open="(" separator="," close=")" item="id">
+            #{id}
+        </foreach>
+    </delete>
+
+    <select id="detail" resultType="Album">
+        select id,title,author,announcer,chapter_num as chapterNum,score,album_intro as albumIntro,
+            status, issue_time as issueTime,upload_time as uploadTime,picture
+        from album where id=#{id}
+    </select>
+</mapper>
