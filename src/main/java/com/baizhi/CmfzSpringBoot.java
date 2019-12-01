@@ -9,5 +9,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class CmfzSpringBoot {
     public static void main(String[] args) {
         SpringApplication.run(CmfzSpringBoot.class, args);
+        //add后idea下次会自动将代码提交到暂存区，只有第一次提交时
+        //会是红色
+        System.out.println();
     }
 }
