@@ -12,5 +12,6 @@ public class CmfzSpringBoot {
         //add后idea下次会自动将代码提交到暂存区，只有第一次提交时
         //会是红色
         System.out.println();
+        System.out.println("pull");
     }
 }
